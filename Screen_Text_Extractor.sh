@@ -39,6 +39,7 @@ echo "3. Name: OCR Screenshot"
 echo "4. Command (copy/paste the optimized one-liner above):"
 echo
 echo "   bash -c 'tmp=\$(mktemp --suffix=.png); gnome-screenshot -a -f \"\$tmp\"; convert \"\$tmp\" -density 300 -colorspace Gray -contrast-stretch 0 \"\$tmp\"; tesseract \"\$tmp\" stdout -l eng | xclip -selection clipboard; rm -f \"\$tmp\"'"
+echo "   bash -c 'tmp=$(mktemp --suffix=.png); gnome-screenshot -a -f "$tmp"; convert "$tmp" -density 600 -resize 300% -colorspace Gray -contrast-stretch 0 -sharpen 0x1 "$tmp"; tesseract "$tmp" stdout -l eng --oem 1 --psm 6 | xclip -selection clipboard; rm -f "$tmp"'"
 echo
 echo "5. Assign your preferred key combo (e.g., Ctrl+Shift+O)"
 echo "6. Test: Press your shortcut, select a screen area, then paste text from clipboard"
