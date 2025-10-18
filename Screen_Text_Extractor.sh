@@ -14,7 +14,7 @@ echo "Step 1: Installing required tools..."
 echo "----------------------------------------------"
 
 sudo apt update
-sudo apt install -y gnome-screenshot tesseract-ocr xclip
+sudo apt install -y gnome-screenshot tesseract-ocr xclip imagemagick
 
 echo
 echo "=============================================="
@@ -26,9 +26,9 @@ echo " - Extract text from the screenshot using OCR"
 echo " - Copy the extracted text directly to your clipboard"
 echo " - Automatically remove the temporary screenshot"
 echo
-echo "One-liner command:"
+echo "Optimized one-liner command:"
 echo
-echo "bash -c 'tmp=\$(mktemp --suffix=.png); gnome-screenshot -a -f \"\$tmp\"; tesseract \"\$tmp\" stdout | xclip -selection clipboard; rm -f \"\$tmp\"'"
+echo "bash -c 'tmp=\$(mktemp --suffix=.png); gnome-screenshot -a -f \"\$tmp\"; convert \"\$tmp\" -density 300 -colorspace Gray -contrast-stretch 0 \"\$tmp\"; tesseract \"\$tmp\" stdout -l eng | xclip -selection clipboard; rm -f \"\$tmp\"'"
 echo
 echo "=============================================="
 echo "Step 3: Adding a Custom Keyboard Shortcut"
@@ -36,9 +36,9 @@ echo "----------------------------------------------"
 echo "1. Open Settings → Keyboard → Keyboard Shortcuts → Custom Shortcuts"
 echo "2. Click '+' to add a new shortcut"
 echo "3. Name: OCR Screenshot"
-echo "4. Command (copy/paste the one-liner above):"
+echo "4. Command (copy/paste the optimized one-liner above):"
 echo
-echo "   bash -c 'tmp=\$(mktemp --suffix=.png); gnome-screenshot -a -f \"\$tmp\"; tesseract \"\$tmp\" stdout | xclip -selection clipboard; rm -f \"\$tmp\"'"
+echo "   bash -c 'tmp=\$(mktemp --suffix=.png); gnome-screenshot -a -f \"\$tmp\"; convert \"\$tmp\" -density 300 -colorspace Gray -contrast-stretch 0 \"\$tmp\"; tesseract \"\$tmp\" stdout -l eng | xclip -selection clipboard; rm -f \"\$tmp\"'"
 echo
 echo "5. Assign your preferred key combo (e.g., Ctrl+Shift+O)"
 echo "6. Test: Press your shortcut, select a screen area, then paste text from clipboard"
@@ -48,7 +48,8 @@ echo "Optional Tips:"
 echo "- The screenshot is temporary and is removed automatically"
 echo "- You can change the temp folder by editing the 'tmp' variable in the command"
 echo "- Ensure 'xclip' works with your clipboard (Clipboard Indicator extension is compatible)"
+echo "- You can change '-l eng' to another language if needed (check 'tesseract --list-langs')"
 echo "=============================================="
 
 echo
-echo "Setup Complete! You can now use OCR screenshots via terminal or shortcut."
+echo "Setup Complete! You can now use OCR screenshots via terminal or custom shortcut."
